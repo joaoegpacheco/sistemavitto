@@ -43,30 +43,30 @@ const withdrawMoneyFinal = (value) => {
     return withdrawMoney(value);
 }
 
-let amountWithdrawn = prompt('How much you want to withdraw money?');
+let amountWithdrawn = prompt('Quanto quer retirar?');
 
 const createH1Head = () => {
     let h1Head = document.createElement('h1');
-    h1Head.textContent = "ATM - Sistema Vitto";
+    h1Head.textContent = "Caixa Eletrônico - Sistema Vitto";
     document.body.appendChild(h1Head);
 }
 createH1Head();
 
 if (isNaN(amountWithdrawn) || amountWithdrawn < 1) {
     let differentNumberValue = document.createElement('div');
-    differentNumberValue.innerHTML = "Invalid value! Please enter an integer number between 1 and 1000.";
+    differentNumberValue.innerHTML = "Valor inválido! Favor digite um número inteiro entre 1 e 1000";
     document.body.appendChild(differentNumberValue);
 }
 
 if (amountWithdrawn > 1000) {
     let valueGreaterThanAThousand = document.createElement('div');
-    valueGreaterThanAThousand.innerHTML = "It's not possible to withdraw this amount, as the cashier allows you to withdraw up to R$ 1,000.00";
+    valueGreaterThanAThousand.innerHTML = "Não é possível sacar esse valor, pois o caixa permite saque até R$1.000,00";
     document.body.appendChild(valueGreaterThanAThousand);
 }
 
 if (amountWithdrawn == 1 || amountWithdrawn == 3) {
     let valueOneOrThree = document.createElement('div');
-    valueOneOrThree.innerHTML = "It's not possible to withdraw this amount, as there is no R$ 1.00 paper money.";
+    valueOneOrThree.innerHTML = "Não é possível devolver este valor, pois não existe nota de R$1,00";
     document.body.appendChild(valueOneOrThree);
 }
 
@@ -74,7 +74,7 @@ const createFinalValue = () => {
     let stringfinalValue = document.createElement('p');
     let finalValue = document.createElement('div');
     if (amountWithdrawn > 0 && amountWithdrawn <= 1000 && amountWithdrawn != 1 && amountWithdrawn != 3) {
-        stringfinalValue.innerHTML = "The paper money received was: ";
+        stringfinalValue.innerHTML = "As notas recebidas foram: ";
         finalValue.innerHTML = "  " + withdrawMoneyFinal(amountWithdrawn).toString();
         document.body.appendChild(stringfinalValue);
         document.body.appendChild(finalValue);
