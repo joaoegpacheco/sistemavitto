@@ -1,83 +1,83 @@
-let notas = [200, 100, 50, 20, 10, 5, 2];
+let paperMoney = [200, 100, 50, 20, 10, 5, 2];
 
-const saldoInicial = (valor, index) => {
+const openingBalance = (value, index) => {
 
     let i = index;
 
-    while (i < notas.length && notas[i] > valor) {
+    while (i < paperMoney.length && paperMoney[i] > value) {
         i++;
     }
     return i;
 }
 
-const sacarRecur = (valor, index = 0) => {
+const withdrawMoney = (value, index = 0) => {
 
-    let saldoMax = saldoInicial(valor, index);
+    let maximumBalance = openingBalance(value, index);
 
-    if (saldoMax >= notas.length) {
+    if (maximumBalance >= paperMoney.length) {
         return [];
     }
 
-    for (let i = saldoMax; i < notas.length; i++) {
+    for (let i = maximumBalance; i < paperMoney.length; i++) {
 
-        let resto = valor - notas[i];
+        let leftoverBalance = value - paperMoney[i];
 
-        if (resto == 0) {
-            return [notas[i]];
+        if (leftoverBalance == 0) {
+            return [paperMoney[i]];
         }
 
-        for (let j = i; j < notas.length; j++) {
+        for (let j = i; j < paperMoney.length; j++) {
 
-            let sacarResto = sacarRecur(resto, j);
+            let withdrawLeftoverBalance = withdrawMoney(leftoverBalance, j);
 
-            if (sacarResto.length > 0) {
-                sacarResto.unshift(notas[i]);
-                return sacarResto;
+            if (withdrawLeftoverBalance.length > 0) {
+                withdrawLeftoverBalance.unshift(paperMoney[i]);
+                return withdrawLeftoverBalance;
             }
         }
     }
     return [];
 }
 
-const sacar = (valor) => {
-    return sacarRecur(valor);
+const withdrawMoneyFinal = (value) => {
+    return withdrawMoney(value);
 }
 
-let valorSacado = prompt('Quanto quer sacar?');
+let amountWithdrawn = prompt('How much you want to withdraw money?');
 
-const createH1Principal = () => {
-    let h1Principal = document.createElement('h1');
-    h1Principal.textContent = "Exercício - Sistema Vitto";
-    document.body.appendChild(h1Principal);
+const createH1Head = () => {
+    let h1Head = document.createElement('h1');
+    h1Head.textContent = "ATM - Sistema Vitto";
+    document.body.appendChild(h1Head);
 }
-createH1Principal();
+createH1Head();
 
-if (isNaN(valorSacado) || valorSacado < 1) {
-    let valorDiferenteDeNumero = document.createElement('div');
-    valorDiferenteDeNumero.innerHTML = "Valor inválido! Favor digite um número inteiro entre 1 e 1000.";
-    document.body.appendChild(valorDiferenteDeNumero);
-}
-
-if (valorSacado > 1000) {
-    let valorMaiorQueMil = document.createElement('div');
-    valorMaiorQueMil.innerHTML = "Não é possível sacar esse valor, pois o caixa permite saque até R$1.000,00";
-    document.body.appendChild(valorMaiorQueMil);
+if (isNaN(amountWithdrawn) || amountWithdrawn < 1) {
+    let differentNumberValue = document.createElement('div');
+    differentNumberValue.innerHTML = "Invalid value! Please enter an integer number between 1 and 1000.";
+    document.body.appendChild(differentNumberValue);
 }
 
-if (valorSacado == 1 || valorSacado == 3) {
-    let valorDeUmOuTres = document.createElement('div');
-    valorDeUmOuTres.innerHTML = "Não é possível devolver este valor, pois não existe nota de R$1,00";
-    document.body.appendChild(valorDeUmOuTres);
+if (amountWithdrawn > 1000) {
+    let valueGreaterThanAThousand = document.createElement('div');
+    valueGreaterThanAThousand.innerHTML = "It's not possible to withdraw this amount, as the cashier allows you to withdraw up to R$ 1,000.00";
+    document.body.appendChild(valueGreaterThanAThousand);
 }
 
-const createValorFinal = () => {
-    let valorFinal = document.createElement('div');
-    let stringValorFinal = document.createElement('p');
-    if (valorSacado > 0 && valorSacado <= 1000) {
-        stringValorFinal.innerHTML = "As notas recebidas foram: ";
-        valorFinal.innerHTML = "  " + sacar(valorSacado).toString();
-        document.body.appendChild(stringValorFinal);
-        document.body.appendChild(valorFinal);
+if (amountWithdrawn == 1 || amountWithdrawn == 3) {
+    let valueOneOrThree = document.createElement('div');
+    valueOneOrThree.innerHTML = "It's not possible to withdraw this amount, as there is no R$ 1.00 paper money.";
+    document.body.appendChild(valueOneOrThree);
+}
+
+const createFinalValue = () => {
+    let stringfinalValue = document.createElement('p');
+    let finalValue = document.createElement('div');
+    if (amountWithdrawn > 0 && amountWithdrawn <= 1000 && amountWithdrawn != 1 && amountWithdrawn != 3) {
+        stringfinalValue.innerHTML = "The paper money received was: ";
+        finalValue.innerHTML = "  " + withdrawMoneyFinal(amountWithdrawn).toString();
+        document.body.appendChild(stringfinalValue);
+        document.body.appendChild(finalValue);
     }
 }
-createValorFinal();
+createFinalValue();
